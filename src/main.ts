@@ -185,3 +185,155 @@ function getUserSummary(user: User3): string {
 }
 
 getUserSummary({ name: "Ivan", age: 34 });
+
+// 5. Масив чисел
+
+// Умова:
+// Функція sumArray приймає масив чисел number[] і повертає їхню суму.
+
+function sumArray(numbers: number[]): number {
+  return numbers.reduce((acc, curValue) => acc + curValue, 0);
+}
+
+sumArray([4, 2, 3]);
+
+// 6. Масив рядків або чисел
+
+// Умова:
+// Функція joinArray приймає масив, елементи якого можуть бути string або number ((string | number)[]) і повертає рядок з усіх елементів, розділених комою.
+
+function joinArray(items: (string | number)[]): string {
+  return items.join(", ");
+}
+
+joinArray(["apple", "dog", "banana"]);
+
+// 7. Функція з readonly полем
+
+// Умова:
+// Інтерфейс Point:
+
+interface Point {
+  readonly x: number;
+  readonly y: number;
+}
+
+// Функція distanceFromOrigin приймає Point і повертає відстань до початку координат (Math.sqrt(x*x + y*y)).
+
+function distanceFromOrigin(point: Point): number {
+  return Math.sqrt(point.x * point.x + point.y * point.y);
+}
+
+distanceFromOrigin({ x: 3, y: 3 });
+
+// 8. Фільтр користувачів за віком
+
+// Умова:
+// Інтерфейс User2:
+
+interface User2 {
+  name: string;
+  age: number;
+  isAdmin?: boolean;
+}
+
+// Функція filterAdults приймає масив User2[] і повертає масив користувачів віком ≥ 18.
+
+function filterAdults(users: User2[]): User2[] {
+  return users.filter((user) => user.age >= 18);
+}
+
+filterAdults([
+  { name: "ss", age: 15 },
+  { name: "ssss", age: 22 },
+]);
+
+// 9. Об’єднання union типів
+
+// Умова:
+// Функція formatValue приймає параметр value: string | number | boolean і повертає рядок:
+
+// якщо boolean — "true"/"false",
+
+// якщо number — "Number: {value}",
+
+// якщо string — "String: {value}".
+
+function formatValue(value: string | number | boolean): string {
+  // if (typeof value === "boolean") {
+  //   return value ? "true" : "false";
+  // } else if (typeof value === "number") {
+  //   return `Number: ${value}`;
+  // }else{
+  //   return `String: ${value}`
+  // }
+
+  if (typeof value === "boolean") {
+    return value ? "true" : "false";
+  }
+  if (typeof value === "number") {
+    return `Number: ${value}`;
+  }
+  return `String: ${value}`;
+}
+
+formatValue(5);
+
+// 10. Масив невідомого типу
+
+// Умова:
+// Функція countNumbers приймає масив unknown[] і повертає кількість чисел у масиві.
+
+function countNumbers(items: unknown[]): number {
+  return items.filter((item) => typeof item === "number").length;
+}
+
+countNumbers([1, 2, "sd"]);
+
+// 11. Підрахунок вартості.
+
+// Умова:
+// Інтерфейс Product:
+
+interface Product {
+  readonly id: number;
+  name: string;
+  price: number;
+}
+
+// Функція totalPrice приймає Product[] і повертає суму цін.
+
+function totalPrice(products: Product[]): number {
+  return products.reduce((sum, products) => sum + products.price, 0);
+}
+
+totalPrice([
+  { id: 1, name: "hdd", price: 3000 },
+  { id: 2, name: "ssd", price: 13000 },
+]);
+
+// 12. Масив unknown з перевірками
+
+// Умова:
+// Функція extractNumbersAndStrings приймає unknown[] і повертає { numbers: number[], strings: string[] }.
+
+function extractNumbersAndStrings(items: unknown[]): {
+  numbers: number[];
+  strings: string[];
+} {
+  const result: { numbers: number[]; strings: string[] } = {
+    numbers: [],
+    strings: [],
+  };
+  items.forEach((item) => {
+    if (typeof item === "number") {
+      result.numbers.push(item);
+    }
+    if (typeof item === "string") {
+      result.strings.push(item);
+    }
+  });
+  return result;
+}
+
+extractNumbersAndStrings([42, "sdsd", true, false, 55]);

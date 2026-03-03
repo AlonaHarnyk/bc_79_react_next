@@ -1,3 +1,5 @@
+import axios from "axios";
+
 // Enums
 enum StatusName {
   Pending = "pending",
@@ -133,3 +135,95 @@ const oneTodoResp: Response<Todo> = {
   message: "success",
   data: { name: "Alex" },
 };
+
+// Задача 7. Узагальнена функція delay з Promise
+// Умова
+
+// Створи функцію delay, яка:
+
+// приймає значення будь-якого типу
+
+// приймає час у мілісекундах
+
+// повертає Promise, який після затримки повертає передане значення
+
+// зроби функцію узагальненою
+
+//
+
+function delay<T>(items: T, time: number): Promise<T> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(items);
+    }, time);
+  });
+}
+
+delay<string>("Hello", 1000).then((result) => {
+  console.log(result);
+});
+delay<number>(34, 1000).then((result) => {
+  console.log(result);
+});
+
+// Задача 8. Узагальнена функція fetchData з Axios
+// Умова
+
+// Створи функцію fetchData, яка:
+
+// приймає URL
+
+// робить GET-запит через axios
+
+// повертає масив об’єктів певного типу, який визначається узагальненням
+
+//
+
+async function fetchData<T>(url: string): Promise<T[]> {
+  const res = await axios.get<T[]>(url);
+  return res.data;
+}
+
+fetchData<string>("http//:dfdsfsfsf").then((data) => {
+  console.log(data);
+});
+
+// Задача 10. Узагальнені функції saveToStorage і loadFromStorage
+// Умова
+
+// Створи дві функції:
+
+// 1) saveToStorage
+
+// приймає ключ
+
+// приймає значення будь-якого типу
+
+// зберігає його у localStorage у форматі JSON
+
+// 2) loadFromStorage
+
+// приймає ключ
+
+// повертає значення
+
+// Зроби обидві функції узагальненими.
+
+function saveToStorage<T>(key: string, value: T): void {
+  localStorage.setItem(key, JSON.stringify(value));
+}
+
+interface User {
+  name: string;
+  age: number;
+}
+
+saveToStorage<User>("name", { name: "Ivan", age: 32 });
+
+function loadFromStorage<T>(key: string): T | null {
+  const data = localStorage.getItem(key);
+
+  return data === null ? null : JSON.parse(data);
+}
+
+loadFromStorage<User>("name");

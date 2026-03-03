@@ -92,3 +92,4 @@ function pair<T,U>(itemFirst: T, itemSecond: U):[T,U]{
 
 pair<boolean, string>(true, "Admin");
 pair<number, string>(13, "User");
+

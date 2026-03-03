@@ -67,13 +67,12 @@ wrapInArray<Getuser>({ name: "", age: 5 });
 
 // Зроби функцію узагальненою.
 
-function getLastElement<T>(arr:T[]):T{
+function getLastElement<T>(arr: T[]): T {
   return arr[arr.length - 1];
 }
 
-getLastElement<number>([1,4,4,5]);
-getLastElement<string>(["hello","Kolya","Vasya","hi"]);
-
+getLastElement<number>([1, 4, 4, 5]);
+getLastElement<string>(["hello", "Kolya", "Vasya", "hi"]);
 
 // Задача 3. Узагальнена функція pair
 // Умова
@@ -86,9 +85,51 @@ getLastElement<string>(["hello","Kolya","Vasya","hi"]);
 
 // Зроби функцію узагальненою
 
-function pair<T,U>(itemFirst: T, itemSecond: U):[T,U]{
-    return [itemFirst , itemSecond];
+function pair<T, U>(itemFirst: T, itemSecond: U): [T, U] {
+  return [itemFirst, itemSecond];
 }
 
 pair<boolean, string>(true, "Admin");
 pair<number, string>(13, "User");
+
+// Задача 5. Узагальнена функція firstOrDefault
+// Умова
+
+// Створи функцію firstOrDefault, яка:
+
+// приймає масив будь-якого типу
+
+// повертає перший елемент масиву або null, якщо масив порожній
+
+// зроби функцію узагальненою
+
+function firstOrDefault<T>(arr: T[]): T | null {
+  return arr.length === 0 ? null : arr[0];
+}
+
+firstOrDefault<number>([1, 2, 3, 4]);
+firstOrDefault([]);
+
+// Status, msg, data[],{},str
+
+interface Response<T> {
+  status: number;
+  message: string;
+  data: T;
+}
+
+interface Todo {
+  name: string;
+}
+
+const todoResp: Response<Todo[]> = {
+  status: 200,
+  message: "success",
+  data: [{ name: "Alex" }, { name: "Vlad" }],
+};
+
+const oneTodoResp: Response<Todo> = {
+  status: 200,
+  message: "success",
+  data: { name: "Alex" },
+};

@@ -55,3 +55,40 @@ interface Getuser {
 }
 
 wrapInArray<Getuser>({ name: "", age: 5 });
+
+// Задача 2. Узагальнена функція getLastElement
+// Умова
+
+// Створи функцію getLastElement, яка:
+
+// приймає масив будь-якого типу
+
+// повертає останній елемент масиву
+
+// Зроби функцію узагальненою.
+
+function getLastElement<T>(arr:T[]):T{
+  return arr[arr.length - 1];
+}
+
+getLastElement<number>([1,4,4,5]);
+getLastElement<string>(["hello","Kolya","Vasya","hi"]);
+
+
+// Задача 3. Узагальнена функція pair
+// Умова
+
+// Створи функцію pair, яка:
+
+// приймає два значення, які можуть бути різного типу
+
+// повертає їх як масив або кортеж [перший, другий]
+
+// Зроби функцію узагальненою
+
+function pair<T,U>(itemFirst: T, itemSecond: U):[T,U]{
+    return [itemFirst , itemSecond];
+}
+
+pair<boolean, string>(true, "Admin");
+pair<number, string>(13, "User");

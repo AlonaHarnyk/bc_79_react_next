@@ -188,6 +188,38 @@ fetchData<string>("http//:dfdsfsfsf").then((data) => {
   console.log(data);
 });
 
+// Задача 9. Узагальнена функція zip
+// Умова
+
+// Створи функцію zip, яка:
+
+// приймає два масиви різного типу
+
+// повертає масив кортежів
+
+// якщо масиви різної довжини, ігнорує зайві елементи
+
+// зроби функцію узагальненою
+
+// Приклад використання:
+
+// const numbers = [1, 2, 3];
+// const strings = ["a", "b"];
+// const zipped = zip(numbers, strings); // [[1,"a"], [2,"b"]]
+
+function zip<T, U>(arrOne: T[], arrTwo: U[]): [T, U][] {
+  const result: [T, U][] = [];
+
+  const shortArr = Math.min(arrOne.length, arrTwo.length);
+
+  for (let i = 0; i <= shortArr; i++) {
+    result.push([arrOne[i], arrTwo[i]]);
+  }
+  return result;
+}
+
+zip([1, 2, 3, 4], ["a", "b", "c"]);
+
 // Задача 10. Узагальнені функції saveToStorage і loadFromStorage
 // Умова
 
@@ -227,3 +259,9 @@ function loadFromStorage<T>(key: string): T | null {
 }
 
 loadFromStorage<User>("name");
+
+function logLength<T extends { length: number }>(arg: T): number {
+  return arg.length;
+}
+
+logLength("3453");

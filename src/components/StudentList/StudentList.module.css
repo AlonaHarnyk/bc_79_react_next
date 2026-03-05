@@ -1,0 +1,19 @@
+.studentList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+
+  gap: 16px;
+}
+
+.studentItem {
+  width: 200px;
+  padding: 8px;
+  border: 1px solid teal;
+  border-radius: 16px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

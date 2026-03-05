@@ -1,0 +1,12 @@
+.status {
+  text-decoration: underline;
+  font-size: 24px;
+}
+
+.online {
+  color: green;
+}
+
+.offline {
+  color: red;
+}

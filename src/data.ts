@@ -1,0 +1,42 @@
+export const students = [
+  {
+    id: 1,
+    name: "Olha",
+    age: 19,
+    course: "Frontend",
+    isOnline: true,
+    avatar: "https://i.pravatar.cc/150?img=1",
+  },
+  {
+    id: 2,
+    name: "Andrii",
+    age: 22,
+    course: "UI/UX",
+    isOnline: false,
+    avatar: "https://i.pravatar.cc/150?img=2",
+  },
+  {
+    id: 3,
+    name: "Maria",
+    age: 20,
+    course: "Frontend",
+    isOnline: true,
+    avatar: "https://i.pravatar.cc/150?img=3",
+  },
+  {
+    id: 4,
+    name: "Dmytro",
+    age: 24,
+    course: "Backend",
+    isOnline: false,
+    avatar: "https://i.pravatar.cc/150?img=4",
+  },
+  {
+    id: 5,
+    name: "Iryna",
+    age: 18,
+    course: "Frontend",
+    isOnline: true,
+    avatar: "https://i.pravatar.cc/150?img=5",
+  },
+];

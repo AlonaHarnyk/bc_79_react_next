@@ -1,5 +1,7 @@
 import { createRoot } from "react-dom/client";
-import { students } from "./data";
+import App from "./App";
+
+// import { students } from "./data";
 
 // const student = students[0];
 
@@ -13,14 +15,14 @@ import { students } from "./data";
 //   </>
 // );
 
-const markup = (
-  <ul>
-    {students.map((student) => (
-      <li key={student.id}>
-        <h2>{student.name}</h2>
-      </li>
-    ))}
-  </ul>
-);
+// const markup = (
+//   <ul>
+//     {students.map((student) => (
+//       <li key={student.id}>
+//         <h2>{student.name}</h2>
+//       </li>
+//     ))}
+//   </ul>
+// );
 
-createRoot(document.getElementById("root")!).render(markup);
+createRoot(document.getElementById("root")!).render(<App />);

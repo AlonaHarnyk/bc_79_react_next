@@ -1,4 +1,4 @@
-export const dogs = [
+export const initialDogs = [
   {
     id: 1,
     name: "Buddy",

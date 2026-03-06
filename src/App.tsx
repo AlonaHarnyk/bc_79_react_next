@@ -16,12 +16,24 @@ function App() {
     setDogs(dogs.filter((dog) => dog.id !== id));
   };
 
+  const changeStatus = (id: number): void => {
+    setDogs(
+      dogs.map((dog) =>
+        dog.id === id ? { ...dog, isFriendly: !dog.isFriendly } : dog,
+      ),
+    );
+  };
+
   return (
     <>
       <h2>List of users</h2>
       <StudentList students={students} />
       <h2>List of dogs</h2>
-      <DogsList dogs={dogs} onDelete={deleteDog} />
+      <DogsList
+        dogs={dogs}
+        onDelete={deleteDog}
+        onChangeStatus={changeStatus}
+      />
     </>
   );
 }

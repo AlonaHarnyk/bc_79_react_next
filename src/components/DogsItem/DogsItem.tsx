@@ -5,13 +5,19 @@ import { DogAddress } from "../DogAddress/DogAddress";
 interface DogItemProps {
   dog: Dog;
   onDelete: (id: number) => void;
+  onChangeStatus: (id: number) => void;
 }
 export function DogItem({
   dog: { id, name, age, breed, isFriendly, avatar, address },
   onDelete,
+  onChangeStatus,
 }: DogItemProps) {
   const handleDelete = (): void => {
     onDelete(id);
+  };
+
+  const handleToggleStatus = (): void => {
+    onChangeStatus(id);
   };
   return (
     <>
@@ -30,6 +36,10 @@ export function DogItem({
         }}
       />
       <Button text="Delete" clickHandler={handleDelete} />
+      <Button
+        text="Change status of friendliness"
+        clickHandler={handleToggleStatus}
+      />
     </>
   );
 }

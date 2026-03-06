@@ -1,4 +1,4 @@
-export const students = [
+export const initialStudents = [
   {
     id: 1,
     name: "Olha",

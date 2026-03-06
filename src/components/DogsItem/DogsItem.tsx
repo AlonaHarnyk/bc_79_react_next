@@ -4,10 +4,15 @@ import { DogAddress } from "../DogAddress/DogAddress";
 
 interface DogItemProps {
   dog: Dog;
+  onDelete: (id: number) => void;
 }
 export function DogItem({
   dog: { id, name, age, breed, isFriendly, avatar, address },
+  onDelete,
 }: DogItemProps) {
+  const handleDelete = (): void => {
+    onDelete(id);
+  };
   return (
     <>
       <img src={avatar} alt={name} />
@@ -24,6 +29,7 @@ export function DogItem({
           console.log(id);
         }}
       />
+      <Button text="Delete" clickHandler={handleDelete} />
     </>
   );
 }

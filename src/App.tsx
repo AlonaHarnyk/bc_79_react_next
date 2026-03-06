@@ -12,12 +12,16 @@ import { type Dog } from "./types";
 function App() {
   const [dogs, setDogs] = useState<Dog[]>(initialDogs);
 
+  const deleteDog = (id: number): void => {
+    setDogs(dogs.filter((dog) => dog.id !== id));
+  };
+
   return (
     <>
       <h2>List of users</h2>
       <StudentList students={students} />
       <h2>List of dogs</h2>
-      <DogsList dogs={dogs} />
+      <DogsList dogs={dogs} onDelete={deleteDog} />
     </>
   );
 }

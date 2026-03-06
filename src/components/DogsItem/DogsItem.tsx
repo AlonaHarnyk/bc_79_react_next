@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { Dog } from "../../types";
 import { Button } from "../Button/Button";
 import { DogAddress } from "../DogAddress/DogAddress";
@@ -12,6 +13,13 @@ export function DogItem({
   onDelete,
   onChangeStatus,
 }: DogItemProps) {
+  
+  const [isAddressVisible, setIsAddressVisible] = useState(false);
+
+  const toggleAddressVisibility = () => {
+    setIsAddressVisible(!isAddressVisible);
+  };
+
   const handleDelete = (): void => {
     onDelete(id);
   };
@@ -28,7 +36,12 @@ export function DogItem({
       <p>
         Friendly: <span>{isFriendly ? "yes" : "no"}</span>
       </p>
-      <DogAddress address={address} />
+      <Button
+        text={isAddressVisible ? "Hide address" : "Show address"}
+        clickHandler={toggleAddressVisibility}
+      />
+      {isAddressVisible && <DogAddress address={address} />}
+
       <Button
         text="View profile"
         clickHandler={() => {
@@ -43,3 +56,5 @@ export function DogItem({
     </>
   );
 }
+
+// Створити всередині компонента елемента списку кнопку "Show address", при натисканні на яку має відображатись адреса тварини (початково ці дані повинні бути приховані), а текстовй контент кнопки має змінюватись на "Hide address" (при натисканні адреса має приховуватись).

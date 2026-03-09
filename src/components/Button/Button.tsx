@@ -5,7 +5,7 @@ interface ButtonProps {
   text: string;
 }
 
-const Button = ({ text, clickHandler }: ButtonProps) => {
+export const Button = ({ text, clickHandler }: ButtonProps) => {
   return (
     <button className={css.btn} type="button" onClick={clickHandler}>
       {text}
@@ -13,4 +13,4 @@ const Button = ({ text, clickHandler }: ButtonProps) => {
   );
 };
 
-export default Button;
+

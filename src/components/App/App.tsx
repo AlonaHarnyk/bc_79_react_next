@@ -7,8 +7,9 @@
 
 import { useState } from "react";
 import { getUsers } from "../../services/userApi";
-import Button from "../Button/Button";
+import {Button} from "../Button/Button";
 import type { User } from "../../types/users";
+import { UserList } from "../UserList/UserList";
 
 function App() {
   const [users, setUsers] = useState<User[]>([]);
@@ -22,7 +23,9 @@ function App() {
   return (
     <>
       <Button text="Show users" clickHandler={showUsers} />
+      <UserList users={users } />
     </>
+
   );
 }
 

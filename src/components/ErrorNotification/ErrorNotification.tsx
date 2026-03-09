@@ -1,7 +1,9 @@
 interface ErrorNotificationProps {
-    message?: string;
+  message?: string;
 }
 
-export function ErrorNotification({message = "Something went wrong"}:ErrorNotificationProps){
-    return <p>{message}</p>
+export function ErrorNotification({
+  message = "Something went wrong",
+}: ErrorNotificationProps) {
+  return <p>{message}</p>;
 }

@@ -12,5 +12,3 @@ export const Button = ({ text, clickHandler }: ButtonProps) => {
     </button>
   );
 };
-
-

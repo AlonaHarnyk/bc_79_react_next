@@ -43,6 +43,10 @@ function App() {
     setIsFormShow(true);
   };
 
+  const closeForm = () => {
+    setIsFormShow(false);
+  };
+
   return (
     <>
       {users.length === 0 ? (
@@ -53,7 +57,7 @@ function App() {
           {isFormShow === false ? (
             <Button text="Add user" clickHandler={showForm} />
           ) : (
-            <UserForm />
+            <UserForm onClose={closeForm} />
           )}
         </>
       )}

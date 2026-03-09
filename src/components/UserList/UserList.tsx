@@ -5,7 +5,6 @@ interface UserListProps {
 }
 
 export function UserList({ users }: UserListProps) {
-  console.log(users);
   return (
     <ul>
       {users.map((user) => (

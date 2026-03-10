@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { getBooks } from "../../services/booksApi";
 import type { Book } from "../../types/books";
 import { BooksList } from "../BooksList/BooksList";
+import { Modal } from "../Modal/Modal";
 
 export function Books() {
   const [books, setBooks] = useState<Book[]>([]);
@@ -22,6 +23,13 @@ export function Books() {
     <>
       <p>Books</p>
       <BooksList books={books} />
+      <Modal
+        onClose={() => {
+          console.log("Close");
+        }}
+      >
+        <p>TEST</p>
+      </Modal>
     </>
   );
 }

@@ -13,15 +13,22 @@ import { Button } from "../Button/Button";
 
 interface BookItemProps {
   bookItem: Book;
+  onShowModal: (description: string) => void;
 }
 
-export function BookItem({ bookItem: { author, title, year } }: BookItemProps) {
+export function BookItem({
+  bookItem: { author, title, year, description },
+  onShowModal,
+}: BookItemProps) {
   return (
     <>
       <h3>{title}</h3>
       <p>{author}</p>
       <p>{year}</p>
-      <Button text="View description" clickHandler={() => {}} />
+      <Button
+        text="View description"
+        clickHandler={() => onShowModal(description)}
+      />
     </>
   );
 }

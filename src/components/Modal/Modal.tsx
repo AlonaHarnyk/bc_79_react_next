@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 import css from "./Modal.module.css";
 
 interface ModalProps {
@@ -10,6 +10,15 @@ export function Modal({ children, onClose }: ModalProps) {
   const handleBackdropClose = (event: React.MouseEvent<HTMLDivElement>) => {
     if (event.target === event.currentTarget) onClose();
   };
+
+  useEffect(() => {
+    const closeByEsc = (e: KeyboardEvent) => {
+      if (e.code === "Escape") onClose();
+    };
+    document.addEventListener("keydown", closeByEsc);
+
+    return () => document.removeEventListener("keydown", closeByEsc);
+  }, [onClose]);
 
   return (
     <div className={css.backdrop} onClick={handleBackdropClose}>

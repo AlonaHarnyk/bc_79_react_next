@@ -30,11 +30,7 @@ export function Books() {
       <p>Books</p>
       <BooksList books={books} onShowModal={onShowModal} />
       {description && (
-        <Modal
-          onClose={() => {
-            console.log("Close");
-          }}
-        >
+        <Modal onClose={() => setDescription(null)}>
           <p>{description}</p>
         </Modal>
       )}

@@ -11,7 +11,7 @@ export function BooksList({ books, onShowModal }: BooksListProps) {
     <ul>
       {books.map((book) => (
         <li key={book.id}>
-          <BookItem bookItem={book} />
+          <BookItem bookItem={book} onShowModal={onShowModal} />
         </li>
       ))}
     </ul>

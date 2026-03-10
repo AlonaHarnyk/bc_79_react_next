@@ -11,6 +11,8 @@ import { Modal } from "../Modal/Modal";
 export function Books() {
   const [books, setBooks] = useState<Book[]>([]);
 
+  const [description, setDescription] = useState<string | null>(null);
+
   useEffect(() => {
     async function fetchBooks() {
       const books = await getBooks();
@@ -19,17 +21,23 @@ export function Books() {
     fetchBooks();
   }, []);
 
+  const onShowModal = (description: string) => {
+    setDescription(description);
+  };
+
   return (
     <>
       <p>Books</p>
-      <BooksList books={books} />
-      <Modal
-        onClose={() => {
-          console.log("Close");
-        }}
-      >
-        <p>TEST</p>
-      </Modal>
+      <BooksList books={books} onShowModal={onShowModal} />
+      {description && (
+        <Modal
+          onClose={() => {
+            console.log("Close");
+          }}
+        >
+          <p>{description}</p>
+        </Modal>
+      )}
     </>
   );
 }

@@ -3,9 +3,10 @@ import { BookItem } from "../BookItem/BookItem";
 
 interface BooksListProps {
   books: Book[];
+  onShowModal: (description: string) => void;
 }
 
-export function BooksList({ books }: BooksListProps) {
+export function BooksList({ books, onShowModal }: BooksListProps) {
   return (
     <ul>
       {books.map((book) => (

@@ -5,6 +5,7 @@
 import { useEffect, useState } from "react";
 import { getBooks } from "../../services/booksApi";
 import type { Book } from "../../types/books";
+import { BooksList } from "../BooksList/BooksList";
 
 export function Books() {
   const [books, setBooks] = useState<Book[]>([]);
@@ -20,6 +21,7 @@ export function Books() {
   return (
     <>
       <p>Books</p>
+      <BooksList books={books} />
     </>
   );
 }

@@ -9,13 +9,17 @@ import { Modal } from "../Modal/Modal";
 import { useQuery } from "@tanstack/react-query";
 import { ErrorNotification } from "../ErrorNotification/ErrorNotification";
 import { Loader } from "../Loader/Loader";
+import ReactPaginate from "react-paginate";
+
+const pageCount = 8;
 
 export function Books() {
   const [description, setDescription] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const { data, isError, isLoading } = useQuery({
-    queryKey: ["books"],
-    queryFn: getBooks,
+    queryKey: ["books", currentPage],
+    queryFn: () => getBooks(currentPage),
   });
 
   const onShowModal = (description: string) => {
@@ -26,7 +30,20 @@ export function Books() {
     <>
       <p>Books</p>
       {data && data.length > 0 && (
-        <BooksList books={data} onShowModal={onShowModal} />
+        <>
+          <ReactPaginate
+            breakLabel="..."
+            nextLabel="next >"
+            onPageChange={({ selected }) => {
+              setCurrentPage(selected + 1);
+            }}
+            pageRangeDisplayed={3}
+            pageCount={pageCount}
+            previousLabel="< previous"
+            renderOnZeroPageCount={null}
+          />
+          <BooksList books={data} onShowModal={onShowModal} />
+        </>
       )}
       {description && (
         <Modal onClose={() => setDescription(null)}>

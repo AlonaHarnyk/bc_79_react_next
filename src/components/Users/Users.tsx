@@ -5,30 +5,26 @@ import { ErrorNotification } from "../ErrorNotification/ErrorNotification";
 import { Loader } from "../Loader/Loader";
 import { UserForm } from "../UserForm/UserForm";
 import { UserList } from "../UserList/UserList";
-import type { User } from "../../types/users";
+import { useQuery } from "@tanstack/react-query";
 
 export function Users() {
-  const [users, setUsers] = useState<User[]>([]);
-
   const [isFormShow, setIsFormShow] = useState<boolean>(false);
+  const [isListShown, setIsListShown] = useState<boolean>(false);
 
-  const [isError, setIsError] = useState<boolean>(false);
+  const {
+    data: users,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["users", isListShown],
+    queryFn: getUsers,
+    enabled: isListShown,
+  });
 
-  const [loading, setLoading] = useState<boolean>(false);
-
-  const showUsers = async () => {
-    try {
-      setIsError(false);
-      setLoading(true);
-      const users = await getUsers();
-
-      setUsers(users);
-    } catch {
-      setIsError(true);
-    } finally {
-      setLoading(false);
-    }
+  const showUsers = () => {
+    setIsListShown(true);
   };
+
   const showForm = () => {
     setIsFormShow(true);
   };
@@ -38,9 +34,10 @@ export function Users() {
   };
   return (
     <>
-      {users.length === 0 ? (
-        <Button text="Show users" clickHandler={showUsers} />
-      ) : (
+      {!isListShown && (
+        <Button text="Show users list" clickHandler={showUsers} />
+      )}
+      {users && users.length > 0 && (
         <>
           <UserList users={users} />
           {isFormShow === false ? (
@@ -50,8 +47,9 @@ export function Users() {
           )}
         </>
       )}
+
       {isError && <ErrorNotification />}
-      {loading && <Loader />}
+      {isLoading && <Loader />}
     </>
   );
 }

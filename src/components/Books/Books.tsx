@@ -7,11 +7,13 @@ import { getBooks } from "../../services/booksApi";
 import { BooksList } from "../BooksList/BooksList";
 import { Modal } from "../Modal/Modal";
 import { useQuery } from "@tanstack/react-query";
+import { ErrorNotification } from "../ErrorNotification/ErrorNotification";
+import { Loader } from "../Loader/Loader";
 
 export function Books() {
   const [description, setDescription] = useState<string | null>(null);
 
-  const { data } = useQuery({
+  const { data, isError, isLoading } = useQuery({
     queryKey: ["books"],
     queryFn: getBooks,
   });
@@ -31,6 +33,8 @@ export function Books() {
           <p>{description}</p>
         </Modal>
       )}
+      {isError && <ErrorNotification />}
+      {isLoading && <Loader />}
     </>
   );
 }

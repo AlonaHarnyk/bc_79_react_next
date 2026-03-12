@@ -2,24 +2,19 @@
 // На підставі отриманих даних відрендерити список книг. Кожен елемент списку має містити інформацію про назву книги, автора, рік видання.
 // До кожного елемента списку додати кнопку View description, при натисканні на яку має відкриватись модальне вікно з описом, яка має закриватись кпопкою Close, клавішею Esc, а також клікои по бекдропу
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { getBooks } from "../../services/booksApi";
-import type { Book } from "../../types/books";
 import { BooksList } from "../BooksList/BooksList";
 import { Modal } from "../Modal/Modal";
+import { useQuery } from "@tanstack/react-query";
 
 export function Books() {
-  const [books, setBooks] = useState<Book[]>([]);
-
   const [description, setDescription] = useState<string | null>(null);
 
-  useEffect(() => {
-    async function fetchBooks() {
-      const books = await getBooks();
-      setBooks(books);
-    }
-    fetchBooks();
-  }, []);
+  const { data } = useQuery({
+    queryKey: ["books"],
+    queryFn: getBooks,
+  });
 
   const onShowModal = (description: string) => {
     setDescription(description);
@@ -28,7 +23,9 @@ export function Books() {
   return (
     <>
       <p>Books</p>
-      <BooksList books={books} onShowModal={onShowModal} />
+      {data && data.length > 0 && (
+        <BooksList books={data} onShowModal={onShowModal} />
+      )}
       {description && (
         <Modal onClose={() => setDescription(null)}>
           <p>{description}</p>

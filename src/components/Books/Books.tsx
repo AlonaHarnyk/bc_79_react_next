@@ -10,6 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import { ErrorNotification } from "../ErrorNotification/ErrorNotification";
 import { Loader } from "../Loader/Loader";
 import ReactPaginate from "react-paginate";
+import { AddBookForm } from "../AddBookForm/AddBookForm";
 
 const pageCount = 8;
 
@@ -29,6 +30,7 @@ export function Books() {
   return (
     <>
       <p>Books</p>
+      <AddBookForm/>
       {data && data.length > 0 && (
         <>
           <ReactPaginate

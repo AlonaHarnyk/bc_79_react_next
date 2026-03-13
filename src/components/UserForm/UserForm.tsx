@@ -1,6 +1,7 @@
 import { useId } from "react";
-import { Field, Form, Formik, type FormikHelpers } from "formik"; 
-
+import { Field, Form, Formik, ErrorMessage, type FormikHelpers } from "formik";
+import * as Yup from "yup";
+import css from "./UserForm.module.css";
 
 interface UserFormProps {
   onClose: () => void;
@@ -11,32 +12,45 @@ interface FormValues {
   email: string;
 }
 
+const schemaValidation = Yup.object().shape({
+  name: Yup.string().min(2).required(),
+  email: Yup.string().email().required(),
+});
+
 const initialFormValues: FormValues = {
   name: "",
-  email: ""
-}
+  email: "",
+};
 
 export function UserForm({ onClose }: UserFormProps) {
   const id = useId();
 
-  const handleSubmit = (values: FormValues, actions: FormikHelpers<FormValues>) => {
+  const handleSubmit = (
+    values: FormValues,
+    actions: FormikHelpers<FormValues>,
+  ) => {
     console.log(values);
-    actions.resetForm()
-    onClose()
-
+    actions.resetForm();
+    onClose();
   };
 
   return (
     <>
-      <Formik onSubmit={handleSubmit} initialValues={initialFormValues}>
-      <Form >
-        <label htmlFor={`${id}-name`}></label>
-        <Field type="text" id={`${id}-name`} name="name" />
+      <Formik
+        onSubmit={handleSubmit}
+        initialValues={initialFormValues}
+        validationSchema={schemaValidation}
+      >
+        <Form>
+          <label htmlFor={`${id}-name`}></label>
+          <Field type="text" id={`${id}-name`} name="name" />
+          <ErrorMessage name="name" component="span" className={css.error} />
 
-        <label htmlFor={`${id}-email`}></label>
-        <Field type="email" id={`${id}-email`} name="email" />
+          <label htmlFor={`${id}-email`}></label>
+          <Field type="email" id={`${id}-email`} name="email" />
+          <ErrorMessage name="email" component="span" className={css.error} />
 
-        <button type="submit">Add</button>
+          <button type="submit">Add</button>
         </Form>
       </Formik>
     </>

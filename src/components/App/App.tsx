@@ -5,6 +5,7 @@
 import { useState } from "react";
 import { Books } from "../Books/Books.tsx";
 import { Users } from "../Users/Users.tsx";
+import AddContactForm from "../Contact/Contact.tsx";
 
 type Tab = "users" | "books";
 
@@ -12,6 +13,7 @@ function App() {
   const [activeTab, setActiveTab] = useState<Tab>("users");
   return (
     <>
+      <AddContactForm />
       <ul>
         <li>
           <button

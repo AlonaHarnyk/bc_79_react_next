@@ -38,7 +38,7 @@ export function Users() {
   const searchUser = (searchValue: string) => {
     setInputValue(searchValue);
   };
-  console.log(inputValue);
+
   return (
     <>
       {!isListShown && (

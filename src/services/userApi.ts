@@ -1,5 +1,5 @@
 import axios from "axios";
-import { type User } from "../types/users";
+import { type User, type UserData } from "../types/users";
 
 // Створити компонент App,
 // в якому рендерити кнопку Show users,                                     компонент
@@ -20,3 +20,8 @@ export const getUsers = async (name?: string): Promise<User[]> => {
   });
   return res.data;
 };
+export const addUser = async (userData: UserData ) => {
+  const { data } = await usersInstance.post<User>("/users", userData)
+  return data
+}
+

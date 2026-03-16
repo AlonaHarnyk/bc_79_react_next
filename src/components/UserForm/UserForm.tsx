@@ -2,6 +2,8 @@ import { useId } from "react";
 import { Field, Form, Formik, ErrorMessage, type FormikHelpers } from "formik";
 import * as Yup from "yup";
 import css from "./UserForm.module.css";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { addUser } from "../../services/userApi";
 
 interface UserFormProps {
   onClose: () => void;
@@ -24,14 +26,23 @@ const initialFormValues: FormValues = {
 
 export function UserForm({ onClose }: UserFormProps) {
   const id = useId();
+  const queryClient = useQueryClient();
+  const { mutate } = useMutation({
+    mutationFn: addUser,
+
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+      onClose();
+    },
+  });
 
   const handleSubmit = (
     values: FormValues,
     actions: FormikHelpers<FormValues>,
   ) => {
     console.log(values);
+    mutate({ ...values, isOnline: false });
     actions.resetForm();
-    onClose();
   };
 
   return (

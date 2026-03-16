@@ -13,6 +13,11 @@ export const getBooks = async (page: number): Promise<Book[]> => {
 };
 
 export const createBook = async (bookData: BookData) => {
-  const response = await booksInstance.post<Book>("/books", bookData);
-  return response.data;
+  const { data } = await booksInstance.post<Book>("/books", bookData);
+  return data;
+};
+
+export const deleteBook = async (id: Book["id"]) => {
+  const { data } = await booksInstance.delete<Book>(`/books/${id}`);
+  return data;
 };

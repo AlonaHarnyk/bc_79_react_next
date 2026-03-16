@@ -8,8 +8,10 @@ export interface Book {
 }
 */
 
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { Book } from "../../types/books";
 import { Button } from "../Button/Button";
+import { deleteBook } from "../../services/booksApi";
 
 interface BookItemProps {
   bookItem: Book;
@@ -17,9 +19,17 @@ interface BookItemProps {
 }
 
 export function BookItem({
-  bookItem: { author, title, year, description },
+  bookItem: { author, title, year, description, id },
   onShowModal,
 }: BookItemProps) {
+  const queryClient = useQueryClient();
+  const { mutate } = useMutation({
+    mutationFn: deleteBook,
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: ["books"] });
+    },
+  });
+
   return (
     <>
       <h3>{title}</h3>
@@ -29,6 +39,7 @@ export function BookItem({
         text="View description"
         clickHandler={() => onShowModal(description)}
       />
+      <Button text="Delete Book" clickHandler={() => mutate(id)} />
     </>
   );
 }

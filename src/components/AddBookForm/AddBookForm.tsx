@@ -2,6 +2,8 @@ import { Form, Formik, Field, type FormikHelpers, ErrorMessage } from "formik";
 import { useId } from "react";
 import * as Yup from "yup";
 import css from "./AddBookForm.module.css";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createBook } from "../../services/booksApi";
 
 interface FormValues {
   author: string;
@@ -25,15 +27,25 @@ const schema = Yup.object().shape({
 });
 
 export function AddBookForm() {
+  const queryClient = useQueryClient();
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: createBook,
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: ["books"] });
+    },
+  });
+
   const handleSubmit = (
     values: FormValues,
     actions: FormikHelpers<FormValues>,
   ) => {
     console.log(values);
-
+    mutate(values);
     actions.resetForm();
   };
   const id = useId();
+
   return (
     <Formik
       initialValues={initialValues}
@@ -82,7 +94,7 @@ export function AddBookForm() {
         />
         <button className={css.formBtn} type="submit">
           {" "}
-          Add book
+          {isPending ? "Adding book" : "Add book"}
         </button>
       </Form>
     </Formik>

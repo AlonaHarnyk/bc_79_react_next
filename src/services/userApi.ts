@@ -20,8 +20,12 @@ export const getUsers = async (name?: string): Promise<User[]> => {
   });
   return res.data;
 };
-export const addUser = async (userData: UserData ) => {
-  const { data } = await usersInstance.post<User>("/users", userData)
-  return data
-}
+export const addUser = async (userData: UserData) => {
+  const { data } = await usersInstance.post<User>("/users", userData);
+  return data;
+};
 
+export const deleteUser = async (id: User["id"]) => {
+  const { data } = await usersInstance.delete<User>(`/users/${id}`);
+  return data;
+};

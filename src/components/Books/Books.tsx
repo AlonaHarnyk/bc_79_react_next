@@ -11,28 +11,34 @@ import { ErrorNotification } from "../ErrorNotification/ErrorNotification";
 import { Loader } from "../Loader/Loader";
 import ReactPaginate from "react-paginate";
 import { AddBookForm } from "../AddBookForm/AddBookForm";
+import { SearchBookInput } from "../SearchBookInput/SearchBookInput.tsx";
+import { useDebouncedCallback } from "use-debounce";
 
 const pageCount = 8;
 
 export function Books() {
   const [description, setDescription] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchValue, setSearchValue] = useState("");
 
   const { data, isError, isLoading } = useQuery({
-    queryKey: ["books", currentPage],
-    queryFn: () => getBooks(currentPage),
+    queryKey: ["books", currentPage, searchValue],
+    queryFn: () => getBooks(currentPage, searchValue),
   });
 
   const onShowModal = (description: string) => {
     setDescription(description);
   };
 
+  const searchBook = useDebouncedCallback(setSearchValue, 500);
+
   return (
     <>
       <p>Books</p>
-      <AddBookForm/>
+      <AddBookForm />
       {data && data.length > 0 && (
         <>
+          <SearchBookInput onSearch={searchBook} value={searchValue} />
           <ReactPaginate
             breakLabel="..."
             nextLabel="next >"

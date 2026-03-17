@@ -1,21 +1,22 @@
+import type { DebouncedState } from "use-debounce";
+
 interface SearchUserInputProps {
-  onSearchUser: (currentUser: string) => void;
+  onSearchUser: DebouncedState<React.Dispatch<React.SetStateAction<string>>>;
+  value: string;
 }
 
 export default function SearchUsersInput({
   onSearchUser,
+  value,
 }: SearchUserInputProps) {
-  const handleInputSubmit = (formData: FormData) => {
-    const currentUser = formData.get("searchUser") as string;
-    if (currentUser.trim() === "") return;
-    onSearchUser(currentUser);
-  };
   return (
-    <>
-      <form action={handleInputSubmit}>
-        <input type="text" name="searchUser" />
-        <button>Search</button>
-      </form>
-    </>
+    <input
+      defaultValue={value}
+      type="text"
+      name="searchUser"
+      onChange={(event) => {
+        onSearchUser(event.target.value);
+      }}
+    />
   );
 }

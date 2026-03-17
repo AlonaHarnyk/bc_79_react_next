@@ -7,6 +7,7 @@ import { UserForm } from "../UserForm/UserForm";
 import { UserList } from "../UserList/UserList";
 import { useQuery } from "@tanstack/react-query";
 import SearchUsersInput from "../SearchUsersInput/SearchUsersInput";
+import { useDebouncedCallback } from "use-debounce";
 
 export function Users() {
   const [isFormShow, setIsFormShow] = useState<boolean>(false);
@@ -35,18 +36,18 @@ export function Users() {
     setIsFormShow(false);
   };
 
-  const searchUser = (searchValue: string) => {
-    setInputValue(searchValue);
-  };
+  const searchUser = useDebouncedCallback(setInputValue, 500);
 
   return (
     <>
-      {!isListShown && (
+      {!isListShown ? (
         <Button text="Show users list" clickHandler={showUsers} />
+      ) : (
+        <SearchUsersInput onSearchUser={searchUser} value={inputValue} />
       )}
+
       {users && users.length > 0 && (
         <>
-          <SearchUsersInput onSearchUser={searchUser} />
           <UserList users={users} />
           {isFormShow === false ? (
             <Button text="Add user" clickHandler={showForm} />

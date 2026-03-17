@@ -29,3 +29,15 @@ export const deleteUser = async (id: User["id"]) => {
   const { data } = await usersInstance.delete<User>(`/users/${id}`);
   return data;
 };
+
+interface UpdateUserData {
+  id: User["id"];
+  status: boolean;
+}
+
+export const updateUser = async ({ id, status }: UpdateUserData) => {
+  const { data } = await usersInstance.put<User>(`/users/${id}`, {
+    isOnline: status,
+  });
+  return data;
+};

@@ -6,6 +6,11 @@ const usersInstance = axios.create({
 });
 
 export const getUsers = async (): Promise<User[]> => {
-  const res = await usersInstance.get<User[]>("/users");
-  return res.data;
+  const { data } = await usersInstance.get<User[]>("/users");
+  return data;
+};
+
+export const getUsersById = async (id: User["id"]): Promise<User> => {
+  const { data } = await usersInstance.get<User>(`/users/${id}`);
+  return data;
 };

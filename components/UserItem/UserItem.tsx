@@ -1,3 +1,4 @@
+import Link from "next/link.js";
 import type { User } from "../../types/users.ts";
 
 interface UserProps {
@@ -5,11 +6,5 @@ interface UserProps {
 }
 
 export function UserItem({ user }: UserProps) {
-  return (
-    <>
-      <p>{user.name}</p>
-      <p>{user.email}</p>
-      <p> Is online: {user.isOnline ? "Yes" : "No"}</p>
-    </>
-  );
+  return <Link href={`/users/${user.id}`}>{user.name}</Link>;
 }

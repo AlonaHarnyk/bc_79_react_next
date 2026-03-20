@@ -14,6 +14,7 @@ export default function UserClient() {
   } = useQuery({
     queryKey: ["userById"],
     queryFn: () => getUsersById(userId),
+    refetchOnMount: false,
   });
   return (
     <>

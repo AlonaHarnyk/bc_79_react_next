@@ -1,25 +1,23 @@
 "use client";
-
+import { BooksList } from "@/components/BookList/BookList";
 import { ErrorNotification } from "@/components/ErrorNotification/ErrorNotification";
 import { Loader } from "@/components/Loader/Loader";
-import { UserList } from "@/components/UserList/UserList";
-import { getUsers } from "@/lib/usersServices";
+import { getBooks } from "@/lib/booksService";
 import { useQuery } from "@tanstack/react-query";
 
-export default function UsersClient() {
+export default function BooksClient() {
   const {
-    data: users,
+    data: books,
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["users"],
-    queryFn: getUsers,
+    queryKey: ["books"],
+    queryFn: getBooks,
     refetchOnMount: false,
   });
-
   return (
     <>
-      {users && users.length > 0 && <UserList users={users} />}
+      {books && books.length > 0 && <BooksList books={books} />}
       {isError && <ErrorNotification />}
       {isLoading && <Loader />}
     </>

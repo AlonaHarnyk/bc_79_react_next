@@ -2,6 +2,7 @@
 import { BooksList } from "@/components/BookList/BookList";
 import { ErrorNotification } from "@/components/ErrorNotification/ErrorNotification";
 import { Loader } from "@/components/Loader/Loader";
+import SearchBooksBar from "@/components/SearchBooksBar/SearchBooksBar";
 import { getBooks } from "@/lib/booksService";
 import { useQuery } from "@tanstack/react-query";
 
@@ -12,12 +13,17 @@ export default function BooksClient() {
     isError,
   } = useQuery({
     queryKey: ["books"],
-    queryFn: getBooks,
+    queryFn: () => getBooks(),
     refetchOnMount: false,
   });
   return (
     <>
-      {books && books.length > 0 && <BooksList books={books} />}
+      {books && books.length > 0 && (
+        <>
+          <SearchBooksBar />
+          <BooksList books={books} />
+        </>
+      )}
       {isError && <ErrorNotification />}
       {isLoading && <Loader />}
     </>

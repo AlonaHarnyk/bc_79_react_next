@@ -11,7 +11,7 @@ export default async function Books() {
 
   await queryClient.prefetchQuery({
     queryKey: ["books"],
-    queryFn: getBooks,
+    queryFn: () => getBooks(),
   });
 
   return (

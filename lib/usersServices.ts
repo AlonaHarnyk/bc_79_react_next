@@ -5,11 +5,11 @@ const usersInstance = axios.create({
   baseURL: "https://6240d2109b450ae274385b44.mockapi.io/api",
 });
 
-interface getUsersProps {
+interface GetUsersProps {
   search?: string;
 }
 
-export const getUsers = async ({ search }: getUsersProps): Promise<User[]> => {
+export const getUsers = async ({ search }: GetUsersProps): Promise<User[]> => {
   const { data } = await usersInstance.get<User[]>(`/users`, {
     params: {
       search,

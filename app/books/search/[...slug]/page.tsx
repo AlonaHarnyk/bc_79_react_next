@@ -1,31 +1,31 @@
-import { getUsers } from "@/lib/usersServices";
+import { getBooks } from "@/lib/booksService";
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
-import SearchUsersClient from "./SearchUsersClient";
+import React from "react";
+import SearchBooksClient from "./SearchBooksClient";
 
-interface UsersSearchPageProps {
+interface BooksSearchPageProps {
   params: Promise<{ slug: string[] }>;
 }
 
-export default async function UsersSearchPage({
+export default async function BooksSearchPage({
   params,
-}: UsersSearchPageProps) {
+}: BooksSearchPageProps) {
   const { slug } = await params;
   const searchQuery = slug[0];
-
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ["users", searchQuery],
-    queryFn: () => getUsers({ search: searchQuery }),
+    queryKey: ["books", searchQuery],
+    queryFn: () => getBooks(searchQuery),
   });
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <SearchUsersClient />
+      <SearchBooksClient />
     </HydrationBoundary>
   );
 }

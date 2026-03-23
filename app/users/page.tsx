@@ -11,13 +11,13 @@ export default async function Users() {
 
   await queryClient.prefetchQuery({
     queryKey: ["users"],
-    queryFn: getUsers,
+    queryFn: () => getUsers({}),
   });
 
   return (
     <div>
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <UsersClient/>
+        <UsersClient />
       </HydrationBoundary>
     </div>
   );

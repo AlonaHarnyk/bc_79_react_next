@@ -13,3 +13,8 @@ export async function getContacts(hasWork?: boolean) {
   });
   return data;
 }
+
+export async function getContactById(id: Contact["id"]) {
+  const { data } = await contactsInstance.get<Contact>(`/contacts/${id}`);
+  return data;
+}

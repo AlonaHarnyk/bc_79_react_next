@@ -3,10 +3,6 @@ import { Button } from "../Button/Button.tsx";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteUser, updateUser } from "../../services/userApi.ts";
 
-// Додатково
-// Додати компоненту UserItem параграф, в якому виводити інформацію про те, чи користувач онлайн.
-// Додати компоненту UserItem кнопку Toggle status, ми натисанні на яку на бекенд має відправлятись put-запит для зміни статусу на протилежний.
-
 interface UserProps {
   user: User;
 }

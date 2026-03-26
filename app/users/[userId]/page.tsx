@@ -5,10 +5,23 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import UserClient from "./UserClient";
+import { Metadata } from "next";
 
 interface UserProps {
   params: Promise<{ userId: string }>;
 }
+
+export const generateMetadata = async ({
+  params,
+}: UserProps): Promise<Metadata> => {
+  const { userId } = await params;
+  const { name } = await getUsersById(userId);
+
+  return {
+    title: `User: ${name}`,
+    description: `Information about user - ${name}`,
+  };
+};
 
 export default async function User({ params }: UserProps) {
   const { userId } = await params;

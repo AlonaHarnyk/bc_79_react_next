@@ -5,6 +5,12 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import UsersClient from "./UsersClient";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Users page",
+  description: "Information about users",
+};
 
 export default async function Users() {
   const queryClient = new QueryClient();

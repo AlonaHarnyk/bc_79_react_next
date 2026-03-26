@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { getBooksById } from "@/lib/booksService";
 import {
   dehydrate,
@@ -8,6 +9,15 @@ import BookClient from "./BookClient";
 
 interface BookProps {
   params: Promise<{ bookId: string }>;
+}
+
+export async function generateMetadata ({ params }: BookProps): Promise<Metadata>{
+  const { bookId } =  await params;
+  const book = await getBooksById(bookId);
+  return {
+    title: book.title,
+    description: book.description
+  }
 }
 
 export default async function Book({ params }: BookProps) {

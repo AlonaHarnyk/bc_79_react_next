@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { getBooks } from "@/lib/booksService";
 import {
   dehydrate,
@@ -9,6 +10,15 @@ import SearchBooksClient from "./SearchBooksClient";
 
 interface BooksSearchPageProps {
   params: Promise<{ slug: string[] }>;
+}
+
+export async function generateMetadata({params}: BooksSearchPageProps): Promise<Metadata> {
+  const {slug} = await params;
+  const searchQuery = slug[0];
+  return {
+    title: `Books by keyword:${searchQuery}`,
+    description: `Books find by keyword: ${searchQuery}`,
+  };
 }
 
 export default async function BooksSearchPage({

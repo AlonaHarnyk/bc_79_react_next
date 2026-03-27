@@ -1,5 +1,6 @@
 "use client";
 
+import AddUserForm from "@/components/AddUserForm/AddUserForm";
 import { ErrorNotification } from "@/components/ErrorNotification/ErrorNotification";
 import { Loader } from "@/components/Loader/Loader";
 import SearchUsersBar from "@/components/SearchUsersBar/SearchUsersBar";
@@ -20,6 +21,7 @@ export default function UsersClient() {
 
   return (
     <>
+      <AddUserForm />
       {users && users.length > 0 && (
         <>
           <SearchUsersBar />

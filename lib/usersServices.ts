@@ -1,4 +1,4 @@
-import { User } from "@/types/users";
+import { User, UserData } from "@/types/users";
 import axios from "axios";
 
 const usersInstance = axios.create({
@@ -20,5 +20,10 @@ export const getUsers = async ({ search }: GetUsersProps): Promise<User[]> => {
 
 export const getUsersById = async (id: User["id"]): Promise<User> => {
   const { data } = await usersInstance.get<User>(`/users/${id}`);
+  return data;
+};
+
+export const addUser = async (user: UserData) => {
+  const { data } = await usersInstance.post<User>("/users", user);
   return data;
 };

@@ -11,20 +11,22 @@ interface BookProps {
   params: Promise<{ bookId: string }>;
 }
 
-export async function generateMetadata ({ params }: BookProps): Promise<Metadata>{
-  const { bookId } =  await params;
+export async function generateMetadata({
+  params,
+}: BookProps): Promise<Metadata> {
+  const { bookId } = await params;
   const book = await getBooksById(bookId);
   return {
     title: book.title,
-    description: book.description
-  }
+    description: book.description,
+  };
 }
 
 export default async function Book({ params }: BookProps) {
   const queryClient = new QueryClient();
   const { bookId } = await params;
   await queryClient.prefetchQuery({
-    queryKey: ["books"],
+    queryKey: ["book"],
     queryFn: () => getBooksById(bookId),
   });
   return (

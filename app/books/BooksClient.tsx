@@ -1,4 +1,5 @@
 "use client";
+import AddBookForm from "@/components/AddBookForm/AddBookForm";
 import { BooksList } from "@/components/BookList/BookList";
 import { ErrorNotification } from "@/components/ErrorNotification/ErrorNotification";
 import { Loader } from "@/components/Loader/Loader";
@@ -20,6 +21,7 @@ export default function BooksClient() {
     <>
       {books && books.length > 0 && (
         <>
+          <AddBookForm />
           <SearchBooksBar />
           <BooksList books={books} />
         </>

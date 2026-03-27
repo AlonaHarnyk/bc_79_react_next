@@ -5,3 +5,5 @@ export interface Book {
   description: string;
   id: string;
 }
+
+export type BookData = Omit<Book, "id">;

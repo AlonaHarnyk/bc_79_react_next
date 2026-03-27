@@ -9,7 +9,7 @@ import { useParams } from "next/navigation";
 export default function BookClient() {
   const { bookId } = useParams<{ bookId: string }>();
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["books"],
+    queryKey: ["book"],
     queryFn: () => getBooksById(bookId),
     refetchOnMount: false,
   });

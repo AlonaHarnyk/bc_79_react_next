@@ -1,4 +1,4 @@
-import { Book } from "@/types/books";
+import { Book, BookData } from "@/types/books";
 import axios from "axios";
 
 const booksInstance = axios.create({
@@ -6,7 +6,7 @@ const booksInstance = axios.create({
 });
 
 export const getBooks = async (search?: string): Promise<Book[]> => {
-  const { data } = await booksInstance.get<Book[]>("/books/", {
+  const { data } = await booksInstance.get<Book[]>("/books", {
     params: {
       search,
     },
@@ -16,5 +16,10 @@ export const getBooks = async (search?: string): Promise<Book[]> => {
 
 export const getBooksById = async (id: Book["id"]): Promise<Book> => {
   const { data } = await booksInstance.get<Book>(`/books/${id}`);
+  return data;
+};
+
+export const addBook = async (newBook: BookData) => {
+  const { data } = await booksInstance.post<Book>("/books", newBook);
   return data;
 };
